@@ -1,61 +1,35 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 /* import logo from './logo.svg'; */
-import { ReactComponent as Logo } from "./logo.svg";
 import "./App.css";
-import { Counter } from './features/counter/Counter';
 import PostsList from './features/posts/PostsList'
 import 'bootstrap/dist/css/bootstrap.min.css' 
+import Navbar from './app/components/Nav';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import Dashboard from './app/components/Dashboard';
+import { useDispatch } from 'react-redux';
+import { authenticateUser } from './features/auth/authedUserSlice';
+import { anonymousUser } from './features/auth/anonymousUser';
+import { fetchPosts } from './features/posts/postsSlice';
+import '@fortawesome/fontawesome-free/css/all.css'
 
 function App() {
+  const dispatch = useDispatch()
+  
+  useEffect( () => {
+    dispatch(authenticateUser(anonymousUser))
+    dispatch(fetchPosts())
+  }, [dispatch]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <Logo className="App-logo" />
-        <PostsList />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-      <hr />
-    </div>
+    <Router>
+      <Navbar />
+      <div className="App">
+        <Switch>
+          <Route path="/" exact component={Dashboard}/>
+          <Route path="/:category" exact component={PostsList}/>
+        </Switch>
+      </div>
+    </Router>
   );
 }
 

@@ -1,14 +1,22 @@
 import React from 'react'
 import styles from "./PostsList.module.css";
 import { useSelector, useDispatch } from 'react-redux'
-import { selectTotalPosts, selectAllPosts, fetchPosts, removePost } from './postsSlice'
+import { 
+    selectTotalPosts, 
+    selectAllPosts, 
+    fetchPosts, 
+} from './postsSlice'
+import { fetchComments } from '../comments/commentsSlice';
+import Post from './Post';
 
 export default function PostsList() {
     const count = useSelector(selectTotalPosts);
     const posts = useSelector(selectAllPosts);
     const postsLoading = useSelector(state => state.posts.loading);
     const dispatch = useDispatch()
-   
+    
+    console.log(posts)
+
     return (
         <div>
           <div className={styles.row}>
@@ -26,16 +34,7 @@ export default function PostsList() {
             {count === 0 && `Why don't you fetch some more?`}
           </div>
           {posts.map(post => (
-            <div className={styles.row} key={post.id}>
-              <div style={{ width: "80%" }}>{`${post.author} ${
-                post.body
-              }`}</div>
-              <div style={{ width: "20%" }}>
-                <button onClick={() => dispatch(removePost(post.id))}>
-                  remove
-                </button>
-              </div>
-            </div>
+            <Post id={post.id} key={post.id} />
           ))}
         </div>
       );

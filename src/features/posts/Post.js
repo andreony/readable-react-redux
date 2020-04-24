@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { votePost, removeAsyncPost } from './postsSlice'
 
-const Post = ({id, title, body, author, commentCount, timestamp, voteScore, dispatch}) => {
+const Post = ({id, title, body, author, commentCount, timestamp, voteScore, dispatch, index}) => {
 
 	return (
 	<div className="card">
@@ -21,12 +21,12 @@ const Post = ({id, title, body, author, commentCount, timestamp, voteScore, disp
 						<i className="fas fa-long-arrow-alt-down fa-2x text-muted"></i>
 					</button>
 				</div>
-				<div className="col-sm-11">
+				<div className="col-sm-11 pl-0">
 					<div className="card-title text-left">
 						<img
 							width="48px"
 							height="48px" 
-							src="https://source.unsplash.com/user/erondu/48x48" 
+							src={`https://source.unsplash.com/user/erondu/${48 + index}x48`}
 							alt="..."
 							className="rounded-circle mx-2"
 						/>
@@ -46,27 +46,27 @@ const Post = ({id, title, body, author, commentCount, timestamp, voteScore, disp
 					</div>
 				</div>
 			</div>
-			<div className="card-footer">
-					<div className="row">
-						<div className="col-sm-12 text-left">
-							<i className="far fa-comment-alt fa-fw"></i>
-							<span className="px-1">{commentCount}</span>
-							<span className="mr-2">Comments</span>
-							<button className="btn py-0">
-								<i className="fas fa-plus fa-fw text-info px-1"></i>
-								<span>Add Comments</span>
-							</button>
-						</div>
-					</div>
+		</div>
+		<div className="card-footer">
+			<div className="row">
+				<div className="col-sm-12 text-left">
+					<i className="far fa-comment-alt fa-fw"></i>
+					<span className="px-1">{commentCount}</span>
+					<span className="mr-2">Comments</span>
+					<button className="btn py-0">
+						<i className="fas fa-plus fa-fw text-info px-1"></i>
+						<span>Add Comments</span>
+					</button>
 				</div>
+			</div>
 		</div>
 	</div>
 )
 	}
 
-const mapStateToProps = ({posts}, {id}) => {
+const mapStateToProps = ({posts}, {id, index}) => {
 	const post = posts.entities[id]
-	return post
+	return {...post, index}
 }
 
 export default connect(mapStateToProps)(Post)

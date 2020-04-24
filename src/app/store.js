@@ -4,6 +4,7 @@ import postsReducer from '../features/posts/postsSlice'
 import logger from './middleware/logger';
 import commentsReducer from '../features/comments/commentsSlice'
 import authedUserReducer from '../features/auth/authedUserSlice'
+import filterSortReducer from '../features/sorters/sortersSlice';
 
 export default configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export default configureStore({
     posts: postsReducer,
     comments: commentsReducer,
     authedUser: authedUserReducer,
+    sortBy: filterSortReducer,
   },
   middleware: [...getDefaultMiddleware(), logger]
 });

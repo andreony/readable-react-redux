@@ -1,4 +1,4 @@
-import { createSlice, createEntityAdapter, createAsyncThunk } from '@reduxjs/toolkit'
+import { createSlice, createEntityAdapter, createAsyncThunk, createSelector } from '@reduxjs/toolkit'
 import postsAPI from './postsAPI'
 
 export const fetchPosts = createAsyncThunk("posts/fetchAll", async () => {
@@ -105,3 +105,8 @@ export const {
   selectAll: selectAllPosts,
   selectTotal: selectTotalPosts
 } = postsAdapter.getSelectors(state => state.posts);
+
+export const makeGetAllPosts = () => createSelector(
+	[selectAllPosts],
+	(posts) => posts
+)

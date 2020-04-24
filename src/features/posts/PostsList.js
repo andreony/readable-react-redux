@@ -1,41 +1,33 @@
 import React from 'react'
-import styles from "./PostsList.module.css";
-import { useSelector, useDispatch } from 'react-redux'
-import { 
-    selectTotalPosts, 
-    selectAllPosts, 
-    fetchPosts, 
-} from './postsSlice'
-import { fetchComments } from '../comments/commentsSlice';
+import { useSelector} from 'react-redux'
+
 import Post from './Post';
+import { selectAllPosts } from './postsSlice';
 
-export default function PostsList() {
-    const count = useSelector(selectTotalPosts);
-    const posts = useSelector(selectAllPosts);
+function PostsList({posts}) {
     const postsLoading = useSelector(state => state.posts.loading);
-    const dispatch = useDispatch()
-    
-    console.log(posts)
 
+    if(postsLoading)
+        return <div className="App-logo">Loading...</div> 
+    
     return (
-        <div>
-          <div className={styles.row}>
-            <button
-              className={styles.button}
-              aria-label="Fetch Posts"
-              onClick={() => dispatch(fetchPosts())}
-              disabled={postsLoading}
-            >
-              Fetch Posts
-            </button>
-          </div>
-          <div className={styles.row}>
-            There are <span className={styles.value}>{count}</span> posts.{" "}
-            {count === 0 && `Why don't you fetch some more?`}
-          </div>
-          {posts.map(post => (
-            <Post id={post.id} key={post.id} />
+        <div className="row">
+          {posts.map((post, i) => (
+            <div className="col-12 mb-4" key={post.id}>
+                <Post id={post.id} index={i} />
+            </div>
           ))}
         </div>
       );
 }
+
+/* const makeMapStateToProps = () => {
+    const mapStateToProps = (state, props) => {
+      return {
+        posts: selectAllPosts(state, props)
+      }
+     }
+    return mapStateToProps
+   }
+ */
+export default PostsList

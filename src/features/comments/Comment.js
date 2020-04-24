@@ -5,30 +5,37 @@ import { asyncRemoveComment, voteComment } from './commentsSlice'
 export default function Comment({id, parentId, author, body, voteScore }) {
 	const dispatch = useDispatch()
 	return (
-		<div className="card w-75 mx-auto mb-3">
-			<div className="card-body">
-					<div className="card-tile">
-						Added By {author}
-						<button 
-							onClick={() => dispatch(asyncRemoveComment(id, parentId))}	
-							className="btn btn-outline-danger mx-2 float-right">
-							<i className="far fa-trash-alt"></i>
-						</button>
+		<div className="card w-75 mx-auto mb-4">
+			<div className="card-body py-2">
+					<div className="card-tile text-left">
+						<small className="text-secondary"> Added By <em>{author}</em> </small>
+						<div className="float-right">
+							<button 
+								onClick={() => dispatch(asyncRemoveComment(id, parentId))}	
+								className="btn btn-outline-info btn-sm mx-2">
+								<i className="far fa-edit"></i>
+							</button>
+							<button 
+								onClick={() => dispatch(asyncRemoveComment(id, parentId))}	
+								className="btn btn-outline-danger btn-sm mx-2">
+								<i className="far fa-trash-alt"></i>
+							</button>
+						</div>
 					</div>
-					<div className="card-text">{body}</div>
+					<div className="card-text py-3">{body}</div>
 			</div>
-			<div className="card-footer text-left">
+			<div className="card-footer text-left py-1">
 				<span>Vote Score: {voteScore}</span>
-				<button className="btn"
+				<button className="btn btn-sm ml-3"
 					onClick={() => dispatch(voteComment({id, option: "upVote"}))}>
 					<span title="Thumbs up">
-						<i className="far fa-thumbs-up fa-fw mx-2"></i>
+						<i className="far fa-thumbs-up fa-fw"></i>
 					</span>
 				</button>
-				<button className="btn"
+				<button className="btn btn-sm"
 					onClick={() => dispatch(voteComment({id, option: "downVote"}))}>
 					<span title="Thumbs down">
-						<i className="far fa-thumbs-down fa-fw mx-2"></i>
+						<i className="far fa-thumbs-down fa-fw"></i>
 					</span>
 				</button>
 			</div>

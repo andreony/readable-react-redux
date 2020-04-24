@@ -1,11 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { votePost, removeAsyncPost } from './postsSlice'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 
-const Post = ({id, title, body, author, category, commentCount, timestamp, voteScore, dispatch, linkToView, index}) => {
-	const post_id = id
-	return (
+
+const Post = ({id, title, body, author, category, commentCount, voteScore, dispatch, linkToView, index}) => {
+	//console.log(title, body, author, category, commentCount, voteScore)
+	return !body 
+	? <Redirect to='/' />  
+	:(
 	<div className="card mb-3">
 		<div className="card-body px-0">
 			<div className="row">
@@ -23,30 +26,32 @@ const Post = ({id, title, body, author, category, commentCount, timestamp, voteS
 					</button>
 				</div>
 					<div className="col-sm-11 pl-0">
-					<Link 
-						style={ linkToView 
-							? {display: 'block'}
-							: {
-									textDecoration: 'none', 
-									color:'black'
-								}
-						}
-						to={ `${category}/${post_id}`	}
-						onClick={ (e) => linkToView ? false : e.preventDefault() }>
-						<div className="card-title text-left">
-							<img
-								width="48px"
-								height="48px" 
-								src={`https://source.unsplash.com/user/erondu/${48 + index}x48`}
-								alt="..."
-								className="rounded-circle mx-2"
-							/>
-							<b>{title}</b>
-							<span className="mx-2">&#8226;</span>
-							<span>Posted by <em>{author}</em></span>
+					<div className="card-title d-flex justify-content-between">
+						<Link 
+							style={ linkToView 
+								? {display: 'block'}
+								: {
+										textDecoration: 'none', 
+										color:'black'
+									}
+							}
+							to={ `${category}/${id}`	}
+							onClick={ (e) => linkToView ? false : e.preventDefault() }>
+							
+								<img
+									width="48px"
+									height="48px" 
+									src={`https://source.unsplash.com/user/erondu/${48 + index}x48`}
+									alt="..."
+									className="rounded-circle mx-2"
+								/>
+								<b>{title}</b>
+								<span className="mx-2">&#8226;</span>
+								<span>Posted by <em>{author}</em></span>
+							</Link>
 							<button 
-								className="btn btn-outline-danger mx-2 float-right"
-								onClick={() => dispatch(removeAsyncPost(id))}>
+								className="btn btn-sm btn-outline-danger m-2"
+								onClick={() => dispatch(removeAsyncPost(id)) }>
 								<span title="Remove Post">
 									<i className="far fa-trash-alt"></i>
 								</span>
@@ -55,8 +60,6 @@ const Post = ({id, title, body, author, category, commentCount, timestamp, voteS
 						<div className="card-text">
 							{body}
 						</div>
-					</Link>
-
 					</div>
 			</div>
 		</div>
@@ -77,7 +80,8 @@ const Post = ({id, title, body, author, category, commentCount, timestamp, voteS
 )
 	}
 
-const mapStateToProps = ({posts}, {id, index, linkToView}) => {
+const mapStateToProps = ({posts}, props) => {
+	const {id, index, linkToView} = props
 	const post = posts.entities[id]
 	return {...post, index, linkToView}
 }

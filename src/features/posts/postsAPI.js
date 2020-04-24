@@ -23,11 +23,11 @@ const postsAPI = {
 	// ----------
   async removeOne(id){
     const result = await fetch(`${API_URL}/posts/${id}`,
-      {
-				method: "DELETE", 
-				headers: { 'Authorization': 'p31267' },
-			}
-		);
+       	{
+			method: "DELETE", 
+			headers: { 'Authorization': 'p31267' },
+		}
+	);
     return result.json();
 	},
 	// ----------

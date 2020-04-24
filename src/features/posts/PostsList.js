@@ -14,7 +14,7 @@ function PostsList({posts}) {
         <div className="row">
           {posts.map((post, i) => (
             <div className="col-12 mb-4" key={post.id}>
-                <Post id={post.id} index={i} />
+                <Post id={post.id} index={i} linkToView={true}/>
             </div>
           ))}
         </div>

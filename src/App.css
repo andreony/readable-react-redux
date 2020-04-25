@@ -12,6 +12,23 @@
     animation: App-logo-float infinite 3s ease-in-out;
   }
 }
+.activeNav{
+  background-color: rgba(51, 206, 230, .9);
+  border-radius: 15px;
+}
+
+.nav-item:hover:not(.activeNav){
+  background-color: lightblue;
+  border-radius: 15px;
+}
+
+.value {
+  font-size: 34px;
+  padding-left: 8px;
+  padding-right: 8px;
+  margin-top: 2px;
+  font-family: "Courier New", Courier, monospace;
+}
 
 .App-header {
   min-height: 100vh;

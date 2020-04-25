@@ -2,6 +2,7 @@ import { createSelector } from "@reduxjs/toolkit";
 import { selectAllPosts, makeGetAllPosts } from "./postsSlice";
 import { sortFilters } from "../sorters/sortersSlice";
 import { connect } from "react-redux";
+import { withRouter } from 'react-router-dom'
 import PostsList from "./PostsList";
 
 const selectSortBy = state => state.sortBy
@@ -30,8 +31,13 @@ const selectSortedPosts = createSelector(
 
 )
 
-const mapStateToProps = (state) => ({
-    posts: selectSortedPosts(state)
-})
+const mapStateToProps = (state, props) => {
+	const { category } = props.match.params
+	return {
+		posts: category 
+			? selectSortedPosts(state).filter( post => post.category === category)
+			: selectSortedPosts(state)
+	}
+}
 
-export default connect(mapStateToProps)(PostsList)
+export default withRouter(connect(mapStateToProps)(PostsList))

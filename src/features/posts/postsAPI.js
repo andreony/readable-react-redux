@@ -40,8 +40,13 @@ const postsAPI = {
 	async vote(post) {
 		const result = await fetch(`/posts/${post.id}`, {
 			method: "POST",
-			headers:{'Authorization': '32451'},
-			body: `option=${post.option}`
+			headers:{
+				'Authorization': '32451',
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({option: post.option})
+			
 		});
 		return post
 	}  

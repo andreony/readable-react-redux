@@ -32,7 +32,7 @@ const commentsSlice = createSlice({
 			state.loading = true
 		},
 		[fetchComments.fulfilled]: (state, action) => {
-			commentsAddapter.setAll(state, action.payload)
+			commentsAddapter.upsertMany(state, action.payload)
 			state.loading = false
 		},
 		[voteComment.fulfilled]: (state, action) => {
@@ -64,6 +64,7 @@ export const {
 
 // async action creators 
 export const asyncAddComment = (comment) => {
+	console.log('comment from async action creator: ', comment)
 	return dispatch => {
 		commentsAPI.addOne(comment)
 			.then( () => dispatch(addComment(comment)))

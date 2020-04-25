@@ -1,4 +1,17 @@
+import { generateUUID } from "../shared";
+
 const API_URL = 'http://127.0.0.1:3001';
+
+export const formatComment = (body, author, parentId) => {
+	return {
+		id: generateUUID(),
+		author,
+		body,
+		parentId,
+		timestamp: Date.now(),
+		voteScore: 0
+	}
+}
 
 export const commentsAPI = {
 	async fetchAll(postId) {
@@ -12,8 +25,12 @@ export const commentsAPI = {
 	async vote({option, id}) {
 		const result = await fetch(`${API_URL}/comments/${id}`, {
 			method: "POST",
-			headers:{'Authorization': '32451'},
-			body: `option=${option}`
+			headers:{
+				'Authorization': '32451',
+				'Accept': 'application/json',
+     		 	'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({option})
 		});
 		return {option, id}
 	},
@@ -23,7 +40,7 @@ export const commentsAPI = {
 			headers: {'Authorization': '234152'},
 			body: `id=${id}&timestamp=${timestamp}&body=${body}&author=${author}&parentId=${parentId}`
 		})
-		return result.json()
+		return {id, timestamp, body, author, parentId}
 	},
 	async removeOne({id}){
 		const result = await fetch(`${API_URL}/comments/${id}`,{

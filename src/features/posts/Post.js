@@ -12,7 +12,7 @@ const Post = ({id, title, body, author, category, commentCount, voteScore, dispa
 	<div className="card mb-3">
 		<div className="card-body px-0">
 			<div className="row">
-				<div className="col-sm-1 bg-light-gray">
+				<div className="col-sm-1 bg-light-gray text-center">
 					<button 
 						onClick={() => dispatch(votePost({id, option: "upVote"}))}
 						className="btn">
@@ -69,10 +69,11 @@ const Post = ({id, title, body, author, category, commentCount, voteScore, dispa
 					<i className="far fa-comment-alt fa-fw"></i>
 					<span className="px-1">{commentCount}</span>
 					<span className="mr-2">Comments</span>
-					<button className="btn py-0">
+					<Link to={`/category/${id}/add-comment`}
+						className="py-0">
 						<i className="fas fa-plus fa-fw text-info px-1"></i>
 						<span>Add Comments</span>
-					</button>
+					</Link>
 				</div>
 			</div>
 		</div>

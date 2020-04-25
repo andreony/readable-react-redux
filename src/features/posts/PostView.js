@@ -21,6 +21,7 @@ const PostView = ({dispatch, post_id, loading}) => {
 						? <div className="text-center App-logo">Loading...</div>
 						: comments
 							.filter( comment => comment.parentId === post_id)
+							.sort( (a,b) => b.timestamp - a.timestamp)
 							.map( (comment) => (
 								<Comment key={comment.id} {...comment}/>
 							))}

@@ -12,6 +12,7 @@ import { useDispatch } from 'react-redux';
 import { authenticateUser } from './features/auth/authedUserSlice';
 import { anonymousUser } from './features/auth/anonymousUser';
 import { fetchPosts } from './features/posts/postsSlice';
+import NewComment from './features/comments/NewComment';
 
 function App() {
   const dispatch = useDispatch()
@@ -24,11 +25,12 @@ function App() {
   return (
     <Router>
       <Navbar />
-      <div className="App">
+      <div className="container-fluid">
         <Switch>
           <Route path="/" exact component={Dashboard}/>
           <Route path="/:category" exact component={PostsList}/>
           <Route path="/:category/:post_id" exact component={PostView}/>
+          <Route path="/:category/:post_id/add-comment" exact component={NewComment}/>
         </Switch>
       </div>
     </Router>

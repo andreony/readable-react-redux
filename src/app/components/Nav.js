@@ -26,7 +26,7 @@ export default function Navbar() {
 						<NavLink activeClassName='activeNav' className="nav-link" to="/udacity">Udacity</NavLink>
 					</li>
 				</ul>
-				<ul className="navbar-nav ml-auto">
+				<ul className="navbar-nav ml-auto mr-2">
 					<li className="nav-item">
 						<NavLink activeClassName='activeNav' className="nav-link" to="/new-post">New Post</NavLink>
 					</li>

@@ -92,10 +92,17 @@ export const { addPost, removePost, voteUp, voteDown, stepUpCommentsCounter, ste
 export const removeAsyncPost = (id) => {
 	return dispatch => {
 		postsAPI.removeOne(id)
-			.then( (result) => console.log(result) )
 			.then( () => dispatch(removePost(id)))
 	}
 }
+
+export const addAsyncPost = (post) => {
+	return dispatch => {
+		postsAPI.addOne({...post})
+			.then( (newPost) => dispatch(addPost(newPost)))
+	}
+}
+
 
 
 export const {

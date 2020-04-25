@@ -1,5 +1,18 @@
 import { generateUUID } from "../shared";
 
+const formatPost = (title, body, author, category) => {
+	return {
+		id: generateUUID(),
+		title, 
+		body, 
+		author,
+		category,
+		timestamp: Date.now(),
+		commentCount: 0,
+		voteScore: 0
+	}
+}
+
 const API_URL = "http://127.0.0.1:3001";
 
 const postsAPI = {
@@ -10,15 +23,20 @@ const postsAPI = {
     return result.json();
 	},
 	// ----------
-  async addOne({title, body, author, category}){
-		const id = generateUUID()
+  async addOne(newPost){
+		const {title, body, author, category} = newPost
+		const post = formatPost(title, body, author, category)
 		const result = await fetch(`${API_URL}/posts`, {
 				method: "POST", 
-				headers: { 'Authorization': 'p31267' },
-				body:`id=${id}&timestamp=${Date.now()}&title=${title}&body=${body}&author=${author}&category=${category}`
+				headers: { 
+					'Authorization': 'p31267',
+					'Accept': 'application/json',
+     		 	'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({...post})
 			}
 		);
-      return result.json();
+      return post
 	},
 	// ----------
   async removeOne(id){
@@ -48,7 +66,7 @@ const postsAPI = {
 			body: JSON.stringify({option: post.option})
 			
 		});
-		return post
+		return {...post}
 	}  
 };
 

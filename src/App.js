@@ -14,6 +14,7 @@ import { anonymousUser } from './features/auth/anonymousUser';
 import { fetchPosts } from './features/posts/postsSlice';
 import NewComment from './features/comments/NewComment';
 import SortedPosts from './features/posts/SortedPosts';
+import NewPost from './features/posts/NewPost';
 
 function App() {
   const dispatch = useDispatch()
@@ -29,6 +30,7 @@ function App() {
       <div className="container-fluid">
         <Switch>
           <Route path="/" exact component={Dashboard}/>
+          <Route path="/new-post" exact component={NewPost} />
           <Route path="/:category" exact component={Dashboard}/>
           <Route path="/:category/:post_id" exact component={PostView}/>
           <Route path="/:category/:post_id/add-comment" exact component={NewComment}/>

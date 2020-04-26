@@ -34,6 +34,7 @@ function App() {
           <Route path="/:category" exact component={Dashboard}/>
           <Route path="/:category/:post_id" exact component={PostView}/>
           <Route path="/:category/:post_id/add-comment" exact component={NewComment}/>
+          <Route path="/comments/:id/edit-comment" exact component={NewComment}/>
         </Switch>
       </div>
     </Router>

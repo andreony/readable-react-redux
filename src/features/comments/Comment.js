@@ -1,6 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { asyncRemoveComment, voteComment } from './commentsSlice'
+import { Link } from 'react-router-dom'
 
 export default function Comment({id, parentId, author, body, voteScore }) {
 	const dispatch = useDispatch()
@@ -10,11 +11,14 @@ export default function Comment({id, parentId, author, body, voteScore }) {
 					<div className="card-tile text-left">
 						<small className="text-secondary"> Added By <em>{author}</em> </small>
 						<div className="float-right">
-							<button 
-								onClick={() => dispatch(asyncRemoveComment(id, parentId))}	
+							<Link 
+								to={{
+									pathname: `/comments/${id}/edit-comment`,
+									state: {id, oAuthor:author, body}
+								}}
 								className="btn btn-outline-info btn-sm mx-2">
 								<i className="far fa-edit"></i>
-							</button>
+							</Link>
 							<button 
 								onClick={() => dispatch(asyncRemoveComment(id, parentId))}	
 								className="btn btn-outline-danger btn-sm mx-2">

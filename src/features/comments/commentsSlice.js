@@ -16,6 +16,15 @@ export const voteComment = createAsyncThunk(
 		return response
 	}
 )
+export const editComment = createAsyncThunk(
+	"comments/edit",
+	async (payload, thunkAPI) => {
+		const { id, timestamp, body } = payload
+		const result = await commentsAPI.edit({ id, timestamp, body })
+		console.log(result)
+		return result
+	}
+)
 
 const commentsAddapter = createEntityAdapter();
 const initialState = commentsAddapter.getInitialState()
@@ -47,6 +56,11 @@ const commentsSlice = createSlice({
 				default:
 					return state
 			}
+		},
+		[editComment.fulfilled]: (state, action) => {
+			//commentsAddapter.updateOne(state, action.payload)
+			state.entities[action.payload.id].body = action.payload.body
+			state.entities[action.payload.id].timestamp = action.payload.timestamp
 		}
 	}
 })

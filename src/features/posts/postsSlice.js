@@ -9,26 +9,19 @@ export const fetchPosts = createAsyncThunk("posts/fetchAll", async () => {
 export const votePost = createAsyncThunk(
 	"posts/vote",
 	async (payload, thunkAPI) => {
-		//console.log(payload);
 		const response = await postsAPI.vote(payload)
 		return response
 	}
 )
 
-/* export const asyncAddPost = createAsyncThunk(
-	"posts/asyncAddPost", 
-	async (post, thunkAPI) => {
-		const response = await postsAPI.addOne(post);
-		return post;
-});
-
-export const asyncRemPost = createAsyncThunk(
-	"posts/asyncRemPost", 
-	async (postId, thunkAPI) => {
-		const response = await postsAPI.removeOne(postId);
-		console.log('response --->>>> ', response)
-		return response;
-}); */
+export const editPost = createAsyncThunk(
+	"posts/edit",
+	async (payload, thunkAPI) => {
+		const {id, title, body, category } = payload
+		const response = await postsAPI.edit({ id, title, body, category })
+		return response
+	}
+)
 
 const postsAdapter = createEntityAdapter()
 const initialState = postsAdapter.getInitialState({loading: false})
@@ -66,20 +59,15 @@ const postsSlice = createSlice({
 						break
 					default:
 						return state
-				}
-			})
-			/* // -- add one
-			builder.addCase(asyncAddPost.pending, (state, action) => state.loading = true)
-			builder.addCase(asyncAddPost.fulfilled, (state, action) => {
-				postsAdapter.addOne(action.payload)
-				state.loading = false
-			})
-			// -- remove one
-			builder.addCase(asyncRemPost.pending, (state, action) => state.loading = true)
-			builder.addCase(asyncRemPost.fulfilled, (state, action) => {
-				postsAdapter.removeOne(action.payload)
-				state.loading = false
-			}) */
+				}				
+			});
+			builder.addCase(editPost.fulfilled, (state,action) => {
+				//postsAdapter.updateOne(state, action.payload) - research...why this doesn't work 
+				const { id, title, body, category } = action.payload
+				state.entities[id].title = title
+				state.entities[id].body = body
+				state.entities[id].category = category
+			});
 		}    
 })
 

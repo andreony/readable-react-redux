@@ -67,7 +67,19 @@ const postsAPI = {
 			
 		});
 		return {...post}
-	}  
+	},
+	async edit({id, title, body, category}){
+		const result = await fetch(`${API_URL}/posts/${id}`,{
+			method: 'PUT',
+			headers:{
+				'Authorization': '32451',
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({title, body, category})
+		});
+		return result.json()
+	}
 };
 
 export default postsAPI;

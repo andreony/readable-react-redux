@@ -49,13 +49,23 @@ const Post = ({id, title, body, author, category, commentCount, voteScore, dispa
 								<span className="mx-2">&#8226;</span>
 								<span>Posted by <em>{author}</em></span>
 							</Link>
-							<button 
-								className="btn btn-sm btn-outline-danger m-2"
-								onClick={() => dispatch(removeAsyncPost(id)) }>
-								<span title="Remove Post">
-									<i className="far fa-trash-alt"></i>
-								</span>
-							</button>
+							<div className="right-side">
+								<Link
+									to={{
+										pathname: `/posts/${id}/edit-post`,
+										state:{id, title, body, oAuthor: author, category}
+									}}
+									className="btn btn-outline-info btn-sm mx-2">
+										<i className="far fa-edit"></i>
+								</Link>
+								<button 
+									className="btn btn-sm btn-outline-danger m-2"
+									onClick={() => dispatch(removeAsyncPost(id)) }>
+									<span title="Remove Post">
+										<i className="far fa-trash-alt"></i>
+									</span>
+								</button>
+							</div>
 						</div>
 						<div className="card-text">
 							{body}

@@ -5,11 +5,13 @@ import logger from './middleware/logger';
 import commentsReducer from '../features/comments/commentsSlice'
 import authedUserReducer from '../features/auth/authedUserSlice'
 import filterSortReducer from '../features/sorters/sortersSlice';
+import categoriesReducer from '../features/categories/categoriesSlice'
 
 export default configureStore({
   reducer: {
     counter: counterReducer,
     posts: postsReducer,
+    categories: categoriesReducer,
     comments: commentsReducer,
     authedUser: authedUserReducer,
     sortBy: filterSortReducer,

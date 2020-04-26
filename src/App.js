@@ -15,6 +15,7 @@ import { fetchPosts } from './features/posts/postsSlice';
 import NewComment from './features/comments/NewComment';
 import SortedPosts from './features/posts/SortedPosts';
 import NewPost from './features/posts/NewPost';
+import { fetchCategories } from './features/categories/categoriesSlice';
 
 function App() {
   const dispatch = useDispatch()
@@ -22,6 +23,7 @@ function App() {
   useEffect( () => {
     dispatch(authenticateUser(anonymousUser))
     dispatch(fetchPosts())
+    dispatch(fetchCategories())
   }, [dispatch]);
 
   return (

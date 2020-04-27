@@ -27,48 +27,48 @@ const postsAdapter = createEntityAdapter()
 const initialState = postsAdapter.getInitialState({loading: false})
 
 const postsSlice = createSlice({
-    name: 'posts',
-    initialState,
-    reducers:{
-			addPost: postsAdapter.addOne,
-			removePost: postsAdapter.removeOne,
-			stepUpCommentsCounter(state, action){
-				state.entities[action.payload.id].commentCount += 1
-			},
-			stepDownCommentsCounter(state,action){
-				state.entities[action.payload.id].commentCount -= 1
-			}
-    },
-    extraReducers: builder => {
-			// -- add many
-			builder.addCase(fetchPosts.pending, (state, action) => {
-				state.loading = true;
-			});
-			builder.addCase(fetchPosts.fulfilled, (state, action) => {
-				postsAdapter.upsertMany(state, action.payload);
-				state.loading = false;
-			});
-			builder.addCase(votePost.fulfilled, (state, action) => {
-				const vote = action.payload.option
-				switch(vote){
-					case "upVote":
-						state.entities[action.payload.id].voteScore += 1
-						break
-					case "downVote":
-						state.entities[action.payload.id].voteScore -= 1
-						break
-					default:
-						return state
-				}				
-			});
-			builder.addCase(editPost.fulfilled, (state,action) => {
-				//postsAdapter.updateOne(state, action.payload) - research...why this doesn't work 
-				const { id, title, body, category } = action.payload
-				state.entities[id].title = title
-				state.entities[id].body = body
-				state.entities[id].category = category
-			});
-		}    
+	name: 'posts',
+	initialState,
+	reducers:{
+		addPost: postsAdapter.addOne,
+		removePost: postsAdapter.removeOne,
+		stepUpCommentsCounter(state, action){
+			state.entities[action.payload.id].commentCount += 1
+		},
+		stepDownCommentsCounter(state,action){
+			state.entities[action.payload.id].commentCount -= 1
+		}
+	},
+	extraReducers: builder => {
+		// -- add many
+		builder.addCase(fetchPosts.pending, (state, action) => {
+			state.loading = true;
+		});
+		builder.addCase(fetchPosts.fulfilled, (state, action) => {
+			postsAdapter.upsertMany(state, action.payload);
+			state.loading = false;
+		});
+		builder.addCase(votePost.fulfilled, (state, action) => {
+			const vote = action.payload.option
+			switch(vote){
+				case "upVote":
+					state.entities[action.payload.id].voteScore += 1
+					break
+				case "downVote":
+					state.entities[action.payload.id].voteScore -= 1
+					break
+				default:
+					return state
+			}				
+		});
+		builder.addCase(editPost.fulfilled, (state,action) => {
+			//postsAdapter.updateOne(state, action.payload) - research...why this doesn't work 
+			const { id, title, body, category } = action.payload
+			state.entities[id].title = title
+			state.entities[id].body = body
+			state.entities[id].category = category
+		});
+	}    
 })
 
 const reducer = postsSlice.reducer;

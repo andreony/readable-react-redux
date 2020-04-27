@@ -33,6 +33,7 @@ export const commentsAPI = {
 			},
 			body: JSON.stringify({option})
 		});
+		console.log('Server side response: ', result.status)
 		return {option, id}
 	},
 	async addOne({id, timestamp, body, author, parentId}){
@@ -41,6 +42,7 @@ export const commentsAPI = {
 			headers: {'Authorization': '234152'},
 			body: `id=${id}&timestamp=${timestamp}&body=${body}&author=${author}&parentId=${parentId}`
 		})
+		console.log('Server side response: ', result.status)
 		return {id, timestamp, body, author, parentId}
 	},
 	async removeOne({id}){

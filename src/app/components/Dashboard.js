@@ -1,8 +1,7 @@
 import React from 'react'
-import { ReactComponent as Logo } from "../../logo.svg"
-import PostsList from '../../features/posts/PostsList';
+/* import { ReactComponent as Logo } from "../../logo.svg" */
 import SortedPosts from '../../features/posts/SortedPosts';
-import { useDispatch, connect } from 'react-redux';
+import { connect } from 'react-redux';
 import { setSortFilters } from '../../features/sorters/sortersSlice';
 import Clock from './Clock'
 
@@ -19,9 +18,7 @@ const Dashboard = ({dispatch}) => (
 					</button>
 					<div className="collapse navbar-collapse" id="navbarNav">
 						<ul className="navbar-nav">
-							<li className="nav-item pr-0 mr-0">
-								<a className="nav-link" href="#">Sort By: </a>
-							</li>
+							<span className="navbar-text px-1">Sort By: </span>
 							<li className="nav-item">
 								<select name="sortBy" id="sortBy" className="form-control"
 									onChange={ (e) => dispatch(setSortFilters(e.target.value)) }>

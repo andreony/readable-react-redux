@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { selectAuthedUser } from '../auth/authedUserSlice'
-import { useDispatch, useSelector, connect } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { addAsyncPost, editPost } from './postsSlice'
 import { selectAllCategories } from '../categories/categoriesSlice'
 

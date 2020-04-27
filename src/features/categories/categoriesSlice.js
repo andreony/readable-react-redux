@@ -1,10 +1,6 @@
 import { createSlice, createEntityAdapter, createAsyncThunk } from "@reduxjs/toolkit";
 import { categoriesAPI } from "./categoriesAPI";
 
-
-let count = 0
-
-
 const categoriesAdapter = createEntityAdapter({
     loading: false,
     selectId: category => category.name

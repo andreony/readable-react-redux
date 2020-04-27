@@ -12,7 +12,7 @@ const PostView = ({dispatch, post_id, loading}) => {
 		// conditional dispatch due to limitted backend not updating in place 
 		if(!comments.length) 
 			dispatch(fetchComments(post_id))
-	},[dispatch])
+	},[dispatch, comments.length, post_id])
 
 	return (
 		<div className="container">

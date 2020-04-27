@@ -1,5 +1,5 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { selectAllPosts, makeGetAllPosts } from "./postsSlice";
+import { selectAllPosts } from "./postsSlice";
 import { sortFilters } from "../sorters/sortersSlice";
 import { connect } from "react-redux";
 import { withRouter } from 'react-router-dom'

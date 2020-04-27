@@ -36,7 +36,7 @@ const postsAPI = {
 				body: JSON.stringify({...post})
 			}
 		);
-      return post
+      return result.json()
 	},
 	// ----------
   async removeOne(id){
@@ -56,7 +56,7 @@ const postsAPI = {
     return result.json();
 	},
 	async vote(post) {
-		const result = await fetch(`/posts/${post.id}`, {
+		const result = await fetch(`${API_URL}/posts/${post.id}`, {
 			method: "POST",
 			headers:{
 				'Authorization': '32451',
@@ -66,7 +66,8 @@ const postsAPI = {
 			body: JSON.stringify({option: post.option})
 			
 		});
-		return {...post}
+		console.log('Server side response: ', result.status)
+		return post
 	},
 	async edit({id, title, body, category}){
 		const result = await fetch(`${API_URL}/posts/${id}`,{

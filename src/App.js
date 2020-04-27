@@ -13,6 +13,7 @@ import { fetchPosts } from './features/posts/postsSlice';
 import NewComment from './features/comments/NewComment';
 import NewPost from './features/posts/NewPost';
 import { fetchCategories } from './features/categories/categoriesSlice';
+import NotFound from './app/NotFound';
 
 function App() {
   const dispatch = useDispatch()
@@ -29,6 +30,7 @@ function App() {
       <div className="container-fluid">
         <Switch>
           <Route path="/" exact component={Dashboard}/>
+          <Route path="/not-found" exact component={NotFound}/>
           <Route path="/new-post" exact component={NewPost} />
           <Route path="/posts/:id/edit-post" exact component={NewPost} />
           <Route path="/:category" exact component={Dashboard}/>

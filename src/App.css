@@ -22,6 +22,19 @@
   border-radius: 15px;
 }
 
+.not-found{
+  position: absolute;
+  top: 0px;
+  left: 100px;
+  z-index: -1;
+  background-image: url(img/just404.png);
+  background-size: auto;
+  background-repeat: no-repeat;
+  width: calc(100vw - 100px);
+  height: 100vh;
+  overflow: hidden;
+}
+
 .value {
   font-size: 34px;
   padding-left: 8px;

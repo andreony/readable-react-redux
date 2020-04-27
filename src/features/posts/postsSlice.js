@@ -17,8 +17,7 @@ export const votePost = createAsyncThunk(
 export const editPost = createAsyncThunk(
 	"posts/edit",
 	async (payload, thunkAPI) => {
-		const {id, title, body, category } = payload
-		const response = await postsAPI.edit({ id, title, body, category })
+		const response = await postsAPI.edit(payload)
 		return response
 	}
 )
@@ -62,11 +61,8 @@ const postsSlice = createSlice({
 			}				
 		});
 		builder.addCase(editPost.fulfilled, (state,action) => {
-			//postsAdapter.updateOne(state, action.payload) - research...why this doesn't work 
-			const { id, title, body, category } = action.payload
-			state.entities[id].title = title
-			state.entities[id].body = body
-			state.entities[id].category = category
+			const { id, ...changes } = action.payload
+			postsAdapter.updateOne(state, {id, changes}) 
 		});
 	}    
 })

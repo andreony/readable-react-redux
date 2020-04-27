@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { votePost, removeAsyncPost } from './postsSlice'
-import { Link, Redirect, withRouter } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 
 
 const Post = (props) => {
@@ -18,9 +18,7 @@ const Post = (props) => {
 		browsingHist
 	} = props
 
-	return !body 
-	? <Redirect to='/not-found' />  
-	:(
+	return (
 		<div className="card mb-3">
 			<div className="card-body px-0">
 				<div className="row">

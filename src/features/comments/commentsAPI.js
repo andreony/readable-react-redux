@@ -18,7 +18,7 @@ export const commentsAPI = {
 	async fetchAll(postId) {
 		const result = await fetch(`${API_URL}/posts/${postId}/comments`, {
 			method: "GET",
-			headers:{'Authorization': '312267'}
+			headers:{'Authorization': 'p32178'}
 		});
 		return result.json()
 	},
@@ -27,7 +27,7 @@ export const commentsAPI = {
 		const result = await fetch(`${API_URL}/comments/${id}`, {
 			method: "POST",
 			headers:{
-				'Authorization': '32451',
+				'Authorization': 'p32178',
 				'Accept': 'application/json',
      		'Content-Type': 'application/json'
 			},
@@ -37,26 +37,31 @@ export const commentsAPI = {
 		return {option, id}
 	},
 	async addOne({id, timestamp, body, author, parentId}){
-		const result = await fetch(`${API_URL}/posts/comments`,{
+		const result = await fetch(`${API_URL}/comments`,{
 			method: "POST",
-			headers: {'Authorization': '234152'},
-			body: `id=${id}&timestamp=${timestamp}&body=${body}&author=${author}&parentId=${parentId}`
+			headers: {
+				'Authorization': 'p32178',
+				'Accept': 'application/json',
+     		'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({id, timestamp, body, author, parentId})
 		})
 		console.log('Server side response: ', result.status)
-		return {id, timestamp, body, author, parentId}
+		return result.json()
 	},
 	async removeOne({id}){
 		const result = await fetch(`${API_URL}/comments/${id}`,{
 			method: "DELETE",
-			headers: {'Authorization': '234152'}
+			headers: {'Authorization': 'p32178'}
 		})
-		return result
+		console.log('Server side response: ', result.status)
+		return result.json()
 	},
 	async edit({id, timestamp, body}){
 		const result = await fetch(`${API_URL}/comments/${id}`,{
 			method: "PUT",
 			headers: {
-				'Authorization': '234152',
+				'Authorization': 'p32178',
 				'Accept': 'application/json',
      		'Content-Type': 'application/json'
 			},

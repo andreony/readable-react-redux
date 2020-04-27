@@ -21,7 +21,6 @@ export const editComment = createAsyncThunk(
 	async (payload, thunkAPI) => {
 		const { id, timestamp, body } = payload
 		const result = await commentsAPI.edit({ id, timestamp, body })
-		console.log(result)
 		return result
 	}
 )
@@ -58,9 +57,8 @@ const commentsSlice = createSlice({
 			}
 		},
 		[editComment.fulfilled]: (state, action) => {
-			//commentsAddapter.updateOne(state, action.payload)
-			state.entities[action.payload.id].body = action.payload.body
-			state.entities[action.payload.id].timestamp = action.payload.timestamp
+			const { id, ...changes } = action.payload 
+			commentsAddapter.updateOne(state, {id, changes })
 		}
 	}
 })
@@ -78,7 +76,6 @@ export const {
 
 // async action creators 
 export const asyncAddComment = (comment) => {
-	console.log('comment from async action creator: ', comment)
 	return dispatch => {
 		commentsAPI.addOne(comment)
 			.then( () => dispatch(addComment(comment)))
@@ -88,7 +85,7 @@ export const asyncAddComment = (comment) => {
 
 export const asyncRemoveComment = (id, parentId) => {
 	return dispatch => {
-		commentsAPI.removeOne(id, parentId)
+		commentsAPI.removeOne({id})
 			.then( () => dispatch(removeComment(id)))
 			.then( () => dispatch(stepDownCommentsCounter({id:parentId})) )
 	}

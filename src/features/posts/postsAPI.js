@@ -18,7 +18,7 @@ const API_URL = "http://127.0.0.1:3001";
 const postsAPI = {
 	async fetchAll() {
     const result = await fetch(`${API_URL}/posts`,
-     { method: "GET", headers: { 'Authorization': '31267' } }
+     { method: "GET", headers: { 'Authorization': 'p32178' } }
     );
     return result.json();
 	},
@@ -29,7 +29,7 @@ const postsAPI = {
 		const result = await fetch(`${API_URL}/posts`, {
 				method: "POST", 
 				headers: { 
-					'Authorization': 'p31267',
+					'Authorization': 'p32178',
 					'Accept': 'application/json',
      		 	'Content-Type': 'application/json'
 				},
@@ -43,7 +43,7 @@ const postsAPI = {
     const result = await fetch(`${API_URL}/posts/${id}`,
        	{
 			method: "DELETE", 
-			headers: { 'Authorization': 'p31267' },
+			headers: { 'Authorization': 'p32178' },
 		}
 	);
     return result.json();
@@ -51,7 +51,7 @@ const postsAPI = {
 	// ----------
   async updatePost(id){
     const result = await fetch(`${API_URL}/posts/${id}`,
-      {method: "PUT", headers: { 'Authorization': 'put31267' } }
+      {method: "PUT", headers: { 'Authorization': 'p32178' } }
     );
     return result.json();
 	},
@@ -59,7 +59,7 @@ const postsAPI = {
 		const result = await fetch(`${API_URL}/posts/${post.id}`, {
 			method: "POST",
 			headers:{
-				'Authorization': '32451',
+				'Authorization': 'p32178',
 				'Accept': 'application/json',
 				'Content-Type': 'application/json'
 			},
@@ -73,12 +73,13 @@ const postsAPI = {
 		const result = await fetch(`${API_URL}/posts/${id}`,{
 			method: 'PUT',
 			headers:{
-				'Authorization': '32451',
+				'Authorization': 'p32178',
 				'Accept': 'application/json',
 				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({title, body, category})
 		});
+		console.log('Server side response: ', result.status)
 		return result.json()
 	}
 };

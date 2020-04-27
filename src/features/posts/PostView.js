@@ -3,18 +3,24 @@ import { connect, useSelector } from "react-redux"
 import { fetchComments, selectAllComments } from '../comments/commentsSlice'
 import Post from './Post'
 import Comment from '../comments/Comment'
+import { selectPostIds } from './postsSlice'
+import { Redirect } from 'react-router-dom'
 
 const PostView = ({dispatch, post_id, loading}) => {
 
 	const comments = useSelector(selectAllComments)
-
+	const postsIds = useSelector(selectPostIds)
+	
 	useEffect( () => {
-		// conditional dispatch due to limitted backend not updating in place 
-		if(!comments.length) 
-			dispatch(fetchComments(post_id))
+		dispatch(fetchComments(post_id))
 	},[dispatch, comments.length, post_id])
 
-	return (
+	if(postsIds.length === 0)
+		return <div className="App-logo">Loading...</div>
+
+  return !postsIds.includes(post_id) 
+		? <Redirect to='/not-found' />  
+		:  (
 		<div className="container">
 			<div className="row py-3">
 				<div className="col-sm-10 offset-1 mb-3">

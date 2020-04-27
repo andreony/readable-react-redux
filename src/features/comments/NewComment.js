@@ -22,7 +22,7 @@ const NewComment = (props) => {
 		} 
 		body 
 			? dispatch(editComment(formatComment(commentBody, author, post_id, id)))
-			: dispatch(asyncAddComment(formatComment(commentBody, author, post_id)))
+			: dispatch(asyncAddComment(formatComment(commentBody, oAuthor, post_id)))
 		props.history.goBack()
 	}
 	const handleChange = (e) => setCommentBody(e.target.value)

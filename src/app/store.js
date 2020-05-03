@@ -6,6 +6,7 @@ import commentsReducer from '../features/comments/commentsSlice'
 import authedUserReducer from '../features/auth/authedUserSlice'
 import filterSortReducer from '../features/sorters/sortersSlice';
 import categoriesReducer from '../features/categories/categoriesSlice'
+import searchReducer from '../features/search/searchSlice'
 
 export default configureStore({
   reducer: {
@@ -15,6 +16,7 @@ export default configureStore({
     comments: commentsReducer,
     authedUser: authedUserReducer,
     sortBy: filterSortReducer,
+    searchBy: searchReducer
   },
   middleware: [...getDefaultMiddleware(), logger]
 });

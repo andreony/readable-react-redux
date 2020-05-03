@@ -1,14 +1,14 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { selectAllPosts } from "./postsSlice";
 import { sortFilters } from "../sorters/sortersSlice";
 import { connect } from "react-redux";
 import { withRouter } from 'react-router-dom'
 import PostsList from "./PostsList";
+import selectSearchedPosts from './SearchedPosts'
 
 const selectSortBy = state => state.sortBy
 
 const selectSortedPosts = createSelector(
-	[selectAllPosts, selectSortBy],
+	[selectSearchedPosts, selectSortBy],
 	(posts, sortBy) => {
 		switch(sortBy){
 			// note to always return a copy of the memoized json using .slice()
@@ -33,10 +33,12 @@ const selectSortedPosts = createSelector(
 
 const mapStateToProps = (state, props) => {
 	const { category } = props.match.params
+	const postIds = state.posts.ids
 	return {
 		posts: category 
 			? selectSortedPosts(state).filter( post => post.category === category)
-			: selectSortedPosts(state)
+			: selectSortedPosts(state),
+		postIds
 	}
 }
 

@@ -6,7 +6,7 @@ import Comment from '../comments/Comment'
 import { selectPostIds } from './postsSlice'
 import { Redirect } from 'react-router-dom'
 
-const PostView = ({dispatch, post_id, loading}) => {
+const PostView = ({dispatch, post_id, loading, postIds}) => {
 
 	const comments = useSelector(selectAllComments)
 	const postsIds = useSelector(selectPostIds)
@@ -24,7 +24,7 @@ const PostView = ({dispatch, post_id, loading}) => {
 		<div className="container">
 			<div className="row py-3">
 				<div className="col-sm-10 offset-1 mb-3">
-					<Post id={post_id}/>
+					<Post id={post_id} index={postIds.indexOf(post_id)}/>
 					{	loading 
 						? <div className="text-center App-logo">Loading...</div>
 						: comments
@@ -41,11 +41,12 @@ const PostView = ({dispatch, post_id, loading}) => {
 
 const mapStateToProps = (state, props) => {
 	const { post_id } = props.match.params
+	const postIds = state.posts.ids
 	return {
 		post_id,
-		loading: state.comments.loading
+		loading: state.comments.loading,
+		postIds
 	}
 }
-
 
 export default connect(mapStateToProps)(PostView)

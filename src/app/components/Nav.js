@@ -1,8 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import logo from '../../logo.svg'
 import { NavLink } from 'react-router-dom'
+import { setSearchFilter } from '../../features/search/searchSlice'
+import { useInput } from '../hooks/useInput'
 
 export default function Navbar() {
+
+	const { searchText, setSearchText, dispatch, bind } = useInput('')
+
+	useEffect( () => {
+		// dispatch when searchText is updated
+		dispatch(setSearchFilter(searchText))
+	}, [dispatch, searchText])
+
+	const handleSubmit = (e) => {
+		e.preventDefault()
+		setSearchText(searchText)
+	}
+
 	return (
 		<nav className="navbar navbar-expand-lg navbar-light bg-light mb-5">
 			<NavLink 
@@ -32,8 +47,15 @@ export default function Navbar() {
 					</li>
 				</ul>
 				<form className="form-inline my-2 my-lg-0">
-					<input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
-					<button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+					<input
+						className="form-control mr-sm-2"
+						placeholder="Search by title"
+						type="search"
+						{...bind}/>
+					<button 
+						className="btn btn-outline-success my-2 my-sm-0" 
+						type="submit"
+						onClick={handleSubmit}>Search</button>
 				</form>
 			</div>
 		</nav>

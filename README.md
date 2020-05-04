@@ -1,5 +1,5 @@
 
-# Would you rather app
+# Readable app
 <a href="https://www.udacity.com/">
   <img src="https://s3-us-west-1.amazonaws.com/udacity-content/rebrand/svg/logo.min.svg" width="300" alt="Udacity logo">
 </a>
@@ -20,9 +20,6 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - [To Do(s)](#to-dos)
 
 ## Instructions
-
-`cd /your/project/path-here/frontend`
-Go to frontend dir
   
 `npm install`
 To install dependencies
@@ -99,12 +96,17 @@ Users ca create, read, update or delete as well as vote posts and comments, and 
 
 ## Backend Server
 The backend features a light weight ExpressJS server, which provides documented API endpoints to manage application data storing, reading, updating, and deleting
-`cd /your/project/path-here/api-server`
+
+`cd /api-server`
+From project path got to api-server folder
+
+`npm install`
+To install dependencies
 
 `node server`
 Start the server
 
- - **NOTE**: The API documentation for the server can be seen by sending a `GET` request to the server root while it's running. You can open [http://localhost:3001](http://localhost:3000) to view it in the browser(server must be running).
+ - **NOTE**: The API documentation for the server can be seen by sending a `GET` request to the server root while it's running. You can open [http://localhost:3001](http://localhost:3001) to view it in the browser(server must be running).
 
 ## To Do(s)
 - Add component proptypes

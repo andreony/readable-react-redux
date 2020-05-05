@@ -6,7 +6,7 @@ import { formatComment } from './commentsAPI'
 
 const NewComment = (props) => {
 	const dispatch = useDispatch()
-	const { id, body, oAuthor } = props.location.state || {body:'', id:'', oAuthor:''}
+	const { id='', body='', oAuthor='' } = props.location.state || {}
 
 	const { post_id } = props.match.params
 	const authedUser = useSelector(selectAuthedUser)
@@ -21,8 +21,8 @@ const NewComment = (props) => {
 			return false 
 		} 
 		body 
-			? dispatch(editComment(formatComment(commentBody, author, post_id, id)))
-			: dispatch(asyncAddComment(formatComment(commentBody, oAuthor, post_id)))
+			? dispatch(editComment(formatComment(commentBody, oAuthor, post_id, id)))
+			: dispatch(asyncAddComment(formatComment(commentBody, author, post_id)))
 		props.history.goBack()
 	}
 	const handleChange = (e) => setCommentBody(e.target.value)

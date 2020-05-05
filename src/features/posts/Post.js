@@ -4,6 +4,23 @@ import { votePost, removeAsyncPost } from './postsSlice'
 import { Link, withRouter } from 'react-router-dom'
 
 
+const PostFooter = ({id, category, commentCount}) => (
+	<div className="card-footer">
+		<div className="row">
+			<div className="col-sm-12 text-left">
+				<i className="far fa-comment-alt fa-fw"></i>
+				<span className="px-1">{commentCount}</span>
+				<span className="mr-2">Comments</span>
+				<Link to={`/${category}/${id}/add-comment`}
+					className="py-0">
+					<i className="fas fa-plus fa-fw text-info px-1"></i>
+					<span>Add Comments</span>
+				</Link>
+			</div>
+		</div>
+	</div>
+)
+
 const Post = (props) => {
 	const { id, 
 		title, 
@@ -45,7 +62,7 @@ const Post = (props) => {
 											color:'black'
 										}
 								}
-								to={ `${category}/${id}`	}
+								to={ `${category}/${id}` }
 								onClick={ (e) => linkToView ? false : e.preventDefault() }>
 								
 									<img
@@ -86,20 +103,7 @@ const Post = (props) => {
 						</div>
 				</div>
 			</div>
-			<div className="card-footer">
-				<div className="row">
-					<div className="col-sm-12 text-left">
-						<i className="far fa-comment-alt fa-fw"></i>
-						<span className="px-1">{commentCount}</span>
-						<span className="mr-2">Comments</span>
-						<Link to={`/${category}/${id}/add-comment`}
-							className="py-0">
-							<i className="fas fa-plus fa-fw text-info px-1"></i>
-							<span>Add Comments</span>
-						</Link>
-					</div>
-				</div>
-			</div>
+			<PostFooter {...{commentCount, id, category}}/>
 		</div>
 	)
 }
